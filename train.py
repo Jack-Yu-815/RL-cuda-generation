@@ -3,12 +3,12 @@ from datasets import load_dataset
 from trl import OnlineDPOConfig, OnlineDPOTrainer, PairRMJudge
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
-from trl import BasePairwiseJudge
 from judge import CudaCodeJudge
+from utils import construct_dataset
 
 # quantization config
 quant_config = BitsAndBytesConfig(
-    load_in_8bit=True,
+    load_in_4bit=True,
     bnb_4bit_quant_type="nf4",
     bnb_4bit_use_double_quant=True,
     bnb_4bit_compute_dtype=torch.bfloat16,
@@ -39,8 +39,9 @@ model = get_peft_model(model, lora_config)
 # judge = CudaCodeJudge()
 judge = PairRMJudge()
 
-# TODO: load your own dataset. follow dataset format: https://huggingface.co/docs/trl/main/en/online_dpo_trainer
-train_dataset = load_dataset("trl-lib/ultrafeedback-prompt", split="train[:50]")
+# load your own dataset. follow dataset format: https://huggingface.co/docs/trl/main/en/online_dpo_trainer
+train_dataset = construct_dataset(test_split=0.35, seed=42)
+# train_dataset = load_dataset("trl-lib/ultrafeedback-prompt", split="train[:50]")
 print(f"Loaded {len(train_dataset)} samples from the dataset.")
 
 
