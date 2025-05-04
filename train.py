@@ -6,6 +6,7 @@ from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from judge import CudaCodeJudge
 from utils import construct_dataset
 
+
 # quantization config
 quant_config = BitsAndBytesConfig(
     load_in_4bit=True,
@@ -42,6 +43,9 @@ judge = CudaCodeJudge(batch_eval=False)
 # load your own dataset. follow dataset format: https://huggingface.co/docs/trl/main/en/online_dpo_trainer
 dataset = construct_dataset(test_split=0.35, seed=42)
 train_dataset = dataset["train"]
+# remove the 3rd datapoint from the dataset due to weird CUDA memory access error
+train_dataset = train_dataset.select([i for i in range(len(dataset["train"])) if i != 2])
+
 # train_dataset = load_dataset("trl-lib/ultrafeedback-prompt", split="train[:50]")
 print(f"Loaded {len(train_dataset)} samples from the dataset.")
 
@@ -55,10 +59,10 @@ training_args = OnlineDPOConfig(
     warmup_ratio=0.1,
     save_steps=10,
     max_length=4096,
-    max_new_tokens=512,
+    max_new_tokens=2048,
     push_to_hub=True,
 )
 trainer = OnlineDPOTrainer(
-    model=model, judge=judge, args=training_args, processing_class=tokenizer, train_dataset=train_dataset
+    model=model, judge=judge, args=training_args, processing_class=tokenizer, train_dataset=train_dataset, 
 )
 trainer.train()

@@ -1,11 +1,15 @@
 from trl import BasePairwiseJudge
 import random
 from KernelBench.src.eval import eval_kernel_against_ref, KernelExecResult
-from KernelBench.src.utils import extract_first_code, extract_last_code
-import openai
+from KernelBench.src.utils import extract_first_code, extract_last_code, set_gpu_arch
+from openai import OpenAI
 import json
+import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from dotenv import load_dotenv
+import traceback
 
+load_dotenv()
 
 # Define a custom judge. reference https://huggingface.co/docs/trl/main/en/judges#define-your-own-judge
 class CudaCodeJudge(BasePairwiseJudge):
@@ -42,10 +46,19 @@ class CudaCodeJudge(BasePairwiseJudge):
                     
                     # check LLM is able to generate custom CUDA code
                     assert custom_cuda is not None, "Custom CUDA code generation failed"
-                    
-                    kernel_exec_result: KernelExecResult = eval_kernel_against_ref(
-                        ref_arch_src, custom_cuda, verbose=False, measure_performance=True, num_correct_trials=5, num_perf_trials=10
-                    )
+                    set_gpu_arch(["Ada"])
+                    try:
+                        kernel_exec_result: KernelExecResult = eval_kernel_against_ref(
+                            ref_arch_src, custom_cuda, verbose=False, measure_performance=True, num_correct_trials=5, num_perf_trials=10
+                        )
+                    except Exception as e:
+                        tb_str = ''.join(traceback.format_exception(type(e), e, e.__traceback__))
+                        with open("error.log", "a") as f:
+                            f.write(f"Error during eval_kernel_against_ref: {e}\n{tb_str}\n\n\n")
+                        kernel_exec_result = KernelExecResult()
+
+                    if kernel_exec_result is None:
+                        kernel_exec_result = KernelExecResult()
 
                     results.append(kernel_exec_result)
                 
@@ -61,18 +74,21 @@ class CudaCodeJudge(BasePairwiseJudge):
                     winner = 0 if result1.correctness else 1
             elif result1.compiled ^ result2.compiled:
                 winner = 0 if result1.compiled else 1
+            better_indices.append(winner)
             
         # filter indices of better_indices that are None, then, batch process gpt_judge
         with ThreadPoolExecutor(max_workers=2) as executor:
-            future_to_index = {executor.submit(gpt_judge, completions[i][0], completions[i][1]): i for i in filter(lambda winner: winner is None, better_indices)}
+            future_to_index = {executor.submit(gpt_judge, completions[i][0], completions[i][1]): i for i, winner in filter(lambda tpl: tpl[1] is None, enumerate(better_indices))}
             for future in as_completed(future_to_index):
                 index = future_to_index[future]
                 
                 winner = future.result()
+                print(f"Winner for index {index}: {winner}, {type(winner)}")
                 better_indices[index] = winner
         
         assert all([winner in [0, 1] for winner in better_indices]), "All indices should be filled with either 0 or 1"
-        
+        assert len(better_indices) == len(prompts), f"Better indices length {len(better_indices)} should be equal to prompts length {len(prompts)}"
+        print(f"Better indices: {better_indices}")
         return better_indices
 
 
@@ -92,6 +108,7 @@ def batch_eval(
     """
     # construct a list of work args
     batch_size = torch.cuda.device_count()
+    set_gpu_arch(["Ada"])
 
     with tqdm(total=len(total_work), desc="Processing batches") as pbar:
 
@@ -166,7 +183,6 @@ def extract_first_code_relaxed(text, languages):
     # count the number of "```" appeared
     count = text.count("```")
 
-    assert count <= 2, "There should be at most one code block in the text"
     if count == 0:
         return text
     elif count == 1:
@@ -174,7 +190,9 @@ def extract_first_code_relaxed(text, languages):
         return extract_first_code(text, languages)
     else:
         return extract_first_code(text, languages)
-    
+
+
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 def gpt_judge(candidate_1, candidate_2):
     """
@@ -184,13 +202,13 @@ def gpt_judge(candidate_1, candidate_2):
         messages = [
             {"role": "user", "content": f"""You are a CUDA expert who knows all about writing performant kernels. The following two CUDA program both can't compile or are both return numerically incorrect result. Yet, I need you to pick a relative winner that is closer to a correct and performant solution. Candidate 1:\n```python\n{candidate_1}\n```\n\nCandidate 2:\n```python\n{candidate_2}\n```\n\nFirst, explain your reasoning. Finally, pick a winner by writing a JSON object in the form: ```json\n{{"winner": 1}}\n``` or ```json\n{{"winner": 1}}\n```"""},
         ]
-        response = openai.ChatCompletion.create(
-            model="gpt-4-mini",
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
             messages=messages,
             temperature=0,
         )
 
-        content = response["choices"][0]["message"]["content"]
+        content = response.choices[0].message.content
 
         # load the JSON object
         dict_str = extract_last_code(content, ["json"])
@@ -202,5 +220,3 @@ def gpt_judge(candidate_1, candidate_2):
     except Exception as e:
         print(f"Error during gpt_judge execution: {e}. returned random result.")
         return random.randint(0, 1)
-
-
