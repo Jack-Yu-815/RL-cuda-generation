@@ -47,9 +47,13 @@ print(f"Loaded {len(train_dataset)} samples from the dataset.")
 
 training_args = OnlineDPOConfig(
     num_train_epochs=1,
-    per_device_train_batch_size=4,
-    output_dir="OnlineDPO", 
+    per_device_train_batch_size=2,
+    output_dir="CUDA-gen-OnlineDPO", 
     logging_steps=10,
+    learning_rate=5e-6,
+    warmup_ratio=0.1,
+    save_steps=10,
+    push_to_hub=True,
 )
 trainer = OnlineDPOTrainer(
     model=model, judge=judge, args=training_args, processing_class=tokenizer, train_dataset=train_dataset
