@@ -1,6 +1,6 @@
 import datasets
 # from src.eval import KernelExecResult
-from src.prompt_constructor import prompt_generate_custom_cuda_from_prompt_template
+from src.prompt_constructor import prompt_generate_custom_cuda_from_prompt_template, prompt_generate_custom_cuda_fewshot_and_template
 
 def construct_dataset(test_split, seed=42):
     bench_dataset = datasets.load_dataset("ScalingIntelligence/KernelBench")
@@ -10,7 +10,8 @@ def construct_dataset(test_split, seed=42):
     for split_name, ds in bench_dataset.items():
         # create input prompt
         ds = ds.map(lambda x: {
-            "prompt": [{"role": "user", "content": prompt_generate_custom_cuda_from_prompt_template(x['code'])}]
+            # "prompt": [{"role": "user", "content": prompt_generate_custom_cuda_from_prompt_template(x['code'])}]
+            "prompt": [{"role": "user", "content": prompt_generate_custom_cuda_fewshot_and_template(x['code'], ['ex_tiled_matmul', 'ex_flash_attn'])}]
         })
         parts = ds.train_test_split(test_size=test_split, seed=seed)
         split_datasets["train"].append(parts["train"])

@@ -1,0 +1,448 @@
+wandb: WARNING Using legacy-service, which is deprecated. If this is unintentional, you can fix it by ensuring you do not call `wandb.require('legacy-service')` and do not set the WANDB_X_REQUIRE_LEGACY_SERVICE environment variable.
+wandb: Appending key for api.wandb.ai to your netrc file: /home/amittur/.netrc
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:05,  1.84s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:03<00:03,  1.80s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:05<00:01,  1.75s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:05<00:00,  1.20s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:05<00:00,  1.41s/it]
+LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(128256, 4096)
+    (layers): ModuleList(
+      (0-31): 32 x LlamaDecoderLayer(
+        (self_attn): LlamaAttention(
+          (q_proj): Linear(in_features=4096, out_features=4096, bias=False)
+          (k_proj): Linear(in_features=4096, out_features=1024, bias=False)
+          (v_proj): Linear(in_features=4096, out_features=1024, bias=False)
+          (o_proj): Linear(in_features=4096, out_features=4096, bias=False)
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=4096, out_features=14336, bias=False)
+          (up_proj): Linear(in_features=4096, out_features=14336, bias=False)
+          (down_proj): Linear(in_features=14336, out_features=4096, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm((4096,), eps=1e-05)
+        (post_attention_layernorm): LlamaRMSNorm((4096,), eps=1e-05)
+      )
+    )
+    (norm): LlamaRMSNorm((4096,), eps=1e-05)
+    (rotary_emb): LlamaRotaryEmbedding()
+  )
+  (lm_head): Linear(in_features=4096, out_features=128256, bias=False)
+)
+PeftModel(
+  (base_model): LoraModel(
+    (model): LlamaForCausalLM(
+      (model): LlamaModel(
+        (embed_tokens): Embedding(128256, 4096)
+        (layers): ModuleList(
+          (0-31): 32 x LlamaDecoderLayer(
+            (self_attn): LlamaAttention(
+              (q_proj): lora.Linear(
+                (base_layer): Linear(in_features=4096, out_features=4096, bias=False)
+                (lora_dropout): ModuleDict(
+                  (default): Identity()
+                )
+                (lora_A): ModuleDict(
+                  (default): Linear(in_features=4096, out_features=128, bias=False)
+                )
+                (lora_B): ModuleDict(
+                  (default): Linear(in_features=128, out_features=4096, bias=False)
+                )
+                (lora_embedding_A): ParameterDict()
+                (lora_embedding_B): ParameterDict()
+                (lora_magnitude_vector): ModuleDict()
+              )
+              (k_proj): Linear(in_features=4096, out_features=1024, bias=False)
+              (v_proj): lora.Linear(
+                (base_layer): Linear(in_features=4096, out_features=1024, bias=False)
+                (lora_dropout): ModuleDict(
+                  (default): Identity()
+                )
+                (lora_A): ModuleDict(
+                  (default): Linear(in_features=4096, out_features=128, bias=False)
+                )
+                (lora_B): ModuleDict(
+                  (default): Linear(in_features=128, out_features=1024, bias=False)
+                )
+                (lora_embedding_A): ParameterDict()
+                (lora_embedding_B): ParameterDict()
+                (lora_magnitude_vector): ModuleDict()
+              )
+              (o_proj): lora.Linear(
+                (base_layer): Linear(in_features=4096, out_features=4096, bias=False)
+                (lora_dropout): ModuleDict(
+                  (default): Identity()
+                )
+                (lora_A): ModuleDict(
+                  (default): Linear(in_features=4096, out_features=128, bias=False)
+                )
+                (lora_B): ModuleDict(
+                  (default): Linear(in_features=128, out_features=4096, bias=False)
+                )
+                (lora_embedding_A): ParameterDict()
+                (lora_embedding_B): ParameterDict()
+                (lora_magnitude_vector): ModuleDict()
+              )
+            )
+            (mlp): LlamaMLP(
+              (gate_proj): lora.Linear(
+                (base_layer): Linear(in_features=4096, out_features=14336, bias=False)
+                (lora_dropout): ModuleDict(
+                  (default): Identity()
+                )
+                (lora_A): ModuleDict(
+                  (default): Linear(in_features=4096, out_features=128, bias=False)
+                )
+                (lora_B): ModuleDict(
+                  (default): Linear(in_features=128, out_features=14336, bias=False)
+                )
+                (lora_embedding_A): ParameterDict()
+                (lora_embedding_B): ParameterDict()
+                (lora_magnitude_vector): ModuleDict()
+              )
+              (up_proj): lora.Linear(
+                (base_layer): Linear(in_features=4096, out_features=14336, bias=False)
+                (lora_dropout): ModuleDict(
+                  (default): Identity()
+                )
+                (lora_A): ModuleDict(
+                  (default): Linear(in_features=4096, out_features=128, bias=False)
+                )
+                (lora_B): ModuleDict(
+                  (default): Linear(in_features=128, out_features=14336, bias=False)
+                )
+                (lora_embedding_A): ParameterDict()
+                (lora_embedding_B): ParameterDict()
+                (lora_magnitude_vector): ModuleDict()
+              )
+              (down_proj): lora.Linear(
+                (base_layer): Linear(in_features=14336, out_features=4096, bias=False)
+                (lora_dropout): ModuleDict(
+                  (default): Identity()
+                )
+                (lora_A): ModuleDict(
+                  (default): Linear(in_features=14336, out_features=128, bias=False)
+                )
+                (lora_B): ModuleDict(
+                  (default): Linear(in_features=128, out_features=4096, bias=False)
+                )
+                (lora_embedding_A): ParameterDict()
+                (lora_embedding_B): ParameterDict()
+                (lora_magnitude_vector): ModuleDict()
+              )
+              (act_fn): SiLU()
+            )
+            (input_layernorm): LlamaRMSNorm((4096,), eps=1e-05)
+            (post_attention_layernorm): LlamaRMSNorm((4096,), eps=1e-05)
+          )
+        )
+        (norm): LlamaRMSNorm((4096,), eps=1e-05)
+        (rotary_emb): LlamaRotaryEmbedding()
+      )
+      (lm_head): Linear(in_features=4096, out_features=128256, bias=False)
+    )
+  )
+)
+Loading base model for reference (device_map='cpu')...
+Training set size:   175
+Test set size: 95
+Loaded 2 samples from the dataset.
+No label_names provided for model class `PeftModel`. Since `PeftModel` hides base models input arguments, if label_names is not given, label_names can't be set automatically within `Trainer`. Note that empty label_names list will be used instead.
+wandb: WARNING The `run_name` is currently set to the same value as `TrainingArguments.output_dir`. If this was not intended, please specify a different run name by setting the `TrainingArguments.run_name` parameter.
+wandb: Currently logged in as: amittur to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.19.10
+wandb: Run data is saved locally in /home/amittur/RL-cuda-generation/wandb/run-20250502_122144-jl0d8ja8
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run OnlineDPO_no_quant_cpu_ref
+wandb: ⭐️ View project at https://wandb.ai/amittur/huggingface
+wandb: 🚀 View run at https://wandb.ai/amittur/huggingface/runs/jl0d8ja8
+Training arguments: OnlineDPOConfig(
+_n_gpu=4,
+accelerator_config={'split_batches': False, 'dispatch_batches': None, 'even_batches': True, 'use_seedable_sampler': True, 'non_blocking': False, 'gradient_accumulation_kwargs': None, 'use_configured_state': False},
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+average_tokens_across_devices=False,
+batch_eval_metrics=False,
+beta=0.1,
+bf16=True,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_persistent_workers=False,
+dataloader_pin_memory=True,
+dataloader_prefetch_factor=None,
+dataset_num_proc=None,
+ddp_backend=None,
+ddp_broadcast_buffers=None,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_dropout=True,
+disable_tqdm=False,
+do_eval=False,
+do_predict=False,
+do_train=False,
+ds3_gather_for_generation=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_do_concat_batches=True,
+eval_on_start=False,
+eval_steps=None,
+eval_strategy=no,
+eval_use_gather_object=False,
+fp16=False,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O1,
+fsdp=[],
+fsdp_config={'min_num_params': 0, 'xla': False, 'xla_fsdp_v2': False, 'xla_fsdp_grad_ckpt': False},
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gpu_memory_utilization=0.55,
+gradient_accumulation_steps=4,
+gradient_checkpointing=True,
+gradient_checkpointing_kwargs=None,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=auto,
+hub_always_push=False,
+hub_model_id=None,
+hub_private_repo=None,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_for_metrics=[],
+include_inputs_for_metrics=False,
+include_num_input_tokens_seen=False,
+include_tokens_per_second=False,
+jit_mode_eval=False,
+judge=None,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=5e-06,
+length_column_name=length,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=warning,
+log_on_each_node=True,
+logging_dir=OnlineDPO_no_quant_cpu_ref/runs/May02_12-21-42_babel-a-20,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=10,
+logging_strategy=steps,
+loss_type=sigmoid,
+lr_scheduler_kwargs={},
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_length=512,
+max_new_tokens=64,
+max_steps=-1,
+metric_for_best_model=None,
+missing_eos_penalty=None,
+mp_parameters=,
+neftune_noise_alpha=None,
+no_cuda=False,
+num_train_epochs=1,
+optim=adamw_torch_fused,
+optim_args=None,
+optim_target_modules=None,
+output_dir=OnlineDPO_no_quant_cpu_ref,
+overwrite_output_dir=False,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=2,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=False,
+report_to=['wandb'],
+restore_callback_states_from_checkpoint=False,
+resume_from_checkpoint=None,
+reward_model_path=None,
+run_name=OnlineDPO_no_quant_cpu_ref,
+save_on_each_node=False,
+save_only_model=False,
+save_safetensors=True,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+skip_memory_metrics=True,
+temperature=0.9,
+tf32=None,
+torch_compile=False,
+torch_compile_backend=None,
+torch_compile_mode=None,
+torch_empty_cache_steps=None,
+torchdynamo=None,
+tp_size=0,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_cpu=False,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_liger_kernel=False,
+use_mps_device=False,
+use_vllm=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.0,
+)
+Initializing OnlineDPOTrainer...
+Trainer initialized.
+  0%|          | 0/1 [00:00<?, ?it/s]/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/utils/checkpoint.py:87: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/amittur/RL-cuda-generation/train.py", line 123, in <module>
+    trainer.train()
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+    return inner_training_loop(
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/trainer.py", line 2560, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/trl/trainer/online_dpo_trainer.py", line 528, in training_step
+    prompt_ids, prompt_mask, completion_ids, completion_mask = self._generate(model, prompts)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/trl/trainer/online_dpo_trainer.py", line 484, in _generate
+    output = unwrapped_model.generate(
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/peft/peft_model.py", line 823, in generate
+    return self.get_base_model().generate(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/generation/utils.py", line 2465, in generate
+    result = self._sample(
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/generation/utils.py", line 3431, in _sample
+    outputs = self(**model_inputs, return_dict=True)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/accelerate/hooks.py", line 176, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/utils/generic.py", line 965, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 821, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/utils/generic.py", line 965, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 559, in forward
+    layer_outputs = self._gradient_checkpointing_func(
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/_compile.py", line 32, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 632, in _fn
+    return fn(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/utils/checkpoint.py", line 489, in checkpoint
+    return CheckpointFunction.apply(function, preserve, *args)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/utils/checkpoint.py", line 264, in forward
+    outputs = run_function(*args)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/accelerate/hooks.py", line 176, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 318, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/accelerate/hooks.py", line 176, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 257, in forward
+    query_states, key_states = apply_rotary_pos_emb(query_states, key_states, cos, sin)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 155, in apply_rotary_pos_emb
+    q_embed = (q * cos) + (rotate_half(q) * sin)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 130, in rotate_half
+    return torch.cat((-x2, x1), dim=-1)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 238.00 MiB. GPU 0 has a total capacity of 39.50 GiB of which 123.38 MiB is free. Including non-PyTorch memory, this process has 39.37 GiB memory in use. Of the allocated memory 38.71 GiB is allocated by PyTorch, and 171.73 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/amittur/RL-cuda-generation/train.py", line 123, in <module>
+    trainer.train()
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+    return inner_training_loop(
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/trainer.py", line 2560, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/trl/trainer/online_dpo_trainer.py", line 528, in training_step
+    prompt_ids, prompt_mask, completion_ids, completion_mask = self._generate(model, prompts)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/trl/trainer/online_dpo_trainer.py", line 484, in _generate
+    output = unwrapped_model.generate(
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/peft/peft_model.py", line 823, in generate
+    return self.get_base_model().generate(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/generation/utils.py", line 2465, in generate
+    result = self._sample(
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/generation/utils.py", line 3431, in _sample
+    outputs = self(**model_inputs, return_dict=True)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/accelerate/hooks.py", line 176, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/utils/generic.py", line 965, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 821, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/utils/generic.py", line 965, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 559, in forward
+    layer_outputs = self._gradient_checkpointing_func(
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/_compile.py", line 32, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 632, in _fn
+    return fn(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/utils/checkpoint.py", line 489, in checkpoint
+    return CheckpointFunction.apply(function, preserve, *args)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/utils/checkpoint.py", line 264, in forward
+    outputs = run_function(*args)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/accelerate/hooks.py", line 176, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 318, in forward
+    hidden_states, self_attn_weights = self.self_attn(
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/accelerate/hooks.py", line 176, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 257, in forward
+    query_states, key_states = apply_rotary_pos_emb(query_states, key_states, cos, sin)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 155, in apply_rotary_pos_emb
+    q_embed = (q * cos) + (rotate_half(q) * sin)
+  File "/home/amittur/miniconda3/envs/kernel-bench/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 130, in rotate_half
+    return torch.cat((-x2, x1), dim=-1)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 238.00 MiB. GPU 0 has a total capacity of 39.50 GiB of which 123.38 MiB is free. Including non-PyTorch memory, this process has 39.37 GiB memory in use. Of the allocated memory 38.71 GiB is allocated by PyTorch, and 171.73 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[1;34mwandb[0m: 
+[1;34mwandb[0m: 🚀 View run [33mOnlineDPO_no_quant_cpu_ref[0m at: [34mhttps://wandb.ai/amittur/huggingface/runs/jl0d8ja8[0m
+[1;34mwandb[0m: Find logs at: [1;35mwandb/run-20250502_122144-jl0d8ja8/logs[0m
+srun: error: babel-a-20: task 0: Exited with exit code 1
