@@ -10,6 +10,6 @@
 eval "$(conda shell.bash hook)"
 conda activate kernel-bench
 
-wandb login 06c3c32dd2d81f1a7a6a6c184afa4927b4c3ad8c
+wandb login <TOKEN>
 
 srun python3 train.py

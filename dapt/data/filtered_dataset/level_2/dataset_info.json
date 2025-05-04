@@ -1,0 +1,66 @@
+{
+  "builder_name": "parquet",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "ai-cuda-engineer-archive",
+  "dataset_size": 542018802,
+  "description": "",
+  "download_checksums": {
+    "hf://datasets/SakanaAI/AI-CUDA-Engineer-Archive@4edbe8d6d0b417e05aaf8ec7e23f78aecdc5516b/level_1.parquet": {
+      "num_bytes": 24651608,
+      "checksum": null
+    },
+    "hf://datasets/SakanaAI/AI-CUDA-Engineer-Archive@4edbe8d6d0b417e05aaf8ec7e23f78aecdc5516b/level_2.parquet": {
+      "num_bytes": 28331888,
+      "checksum": null
+    },
+    "hf://datasets/SakanaAI/AI-CUDA-Engineer-Archive@4edbe8d6d0b417e05aaf8ec7e23f78aecdc5516b/level_3.parquet": {
+      "num_bytes": 11763140,
+      "checksum": null
+    }
+  },
+  "download_size": 64746636,
+  "features": {
+    "Op_Name": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Kernel_Name": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "CUDA_Code": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 606765438,
+  "splits": {
+    "level_1": {
+      "name": "level_1",
+      "num_bytes": 198303191,
+      "num_examples": 12157,
+      "dataset_name": "ai-cuda-engineer-archive"
+    },
+    "level_2": {
+      "name": "level_2",
+      "num_bytes": 227733952,
+      "num_examples": 12938,
+      "dataset_name": "ai-cuda-engineer-archive"
+    },
+    "level_3": {
+      "name": "level_3",
+      "num_bytes": 115981659,
+      "num_examples": 5520,
+      "dataset_name": "ai-cuda-engineer-archive"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}
