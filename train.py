@@ -36,23 +36,26 @@ model = get_peft_model(model, lora_config)
 
 
 # TODO: use the customized judge
-# judge = CudaCodeJudge()
-judge = PairRMJudge()
+judge = CudaCodeJudge(batch_eval=False)
+# judge = PairRMJudge()
 
 # load your own dataset. follow dataset format: https://huggingface.co/docs/trl/main/en/online_dpo_trainer
-train_dataset = construct_dataset(test_split=0.35, seed=42)
+dataset = construct_dataset(test_split=0.35, seed=42)
+train_dataset = dataset["train"]
 # train_dataset = load_dataset("trl-lib/ultrafeedback-prompt", split="train[:50]")
 print(f"Loaded {len(train_dataset)} samples from the dataset.")
 
 
 training_args = OnlineDPOConfig(
     num_train_epochs=1,
-    per_device_train_batch_size=2,
+    per_device_train_batch_size=1,
     output_dir="CUDA-gen-OnlineDPO", 
     logging_steps=10,
     learning_rate=5e-6,
     warmup_ratio=0.1,
     save_steps=10,
+    max_length=4096,
+    max_new_tokens=512,
     push_to_hub=True,
 )
 trainer = OnlineDPOTrainer(

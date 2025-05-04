@@ -20,7 +20,7 @@ class CudaCodeJudge(BasePairwiseJudge):
             batch_prompts = []
             batch_completions = []
             for i in range(len(prompts)):
-                for j in range(completions[i]):
+                for j in range(len(completions[i])):
                     batch_prompts.append(prompts[i])
                     batch_completions.append(completions[i][j])
             
@@ -30,11 +30,10 @@ class CudaCodeJudge(BasePairwiseJudge):
         for p_idx in range(len(prompts)):
             prompt = prompts[p_idx]
             
-            if self.batch_eval:
+            if not self.batch_eval:
                 results = []
                 for completion in completions[p_idx]:
                     # 1. Check if the prompt is valid
-                    print(f"Prompt: {prompt}")
                     print(f"Completion: {completion}")
                     # if not isinstance(prompt, str) or not isinstance(completion, str):
                     #     raise ValueError("Prompt and completion must be strings")
@@ -83,9 +82,8 @@ import multiprocessing as mp
 import time
 
 def batch_eval(
-    total_work: list[tuple[int, int]],
+    total_work: list[tuple[str, str]],
     timeout: int,  # seconds
-    eval_file_path: str,
 ):
     """
     Batch evaluation across multiple GPUs, do batch_size of work one on each GPU all at once
