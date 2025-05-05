@@ -1,6 +1,7 @@
 import datasets
 # from src.eval import KernelExecResult
 from src.prompt_constructor import prompt_generate_custom_cuda_from_prompt_template, prompt_generate_custom_cuda_fewshot_and_template
+from KernelBench.src.prompt_constructor import prompt_generate_custom_cuda_from_prompt_template
 
 def construct_dataset(test_split, seed=42):
     bench_dataset = datasets.load_dataset("ScalingIntelligence/KernelBench")

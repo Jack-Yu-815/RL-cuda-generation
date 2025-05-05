@@ -5,3 +5,5 @@ bitsandbytes
 datasets
 accelerate
 llm-blender
+openai
+python-dotenv
