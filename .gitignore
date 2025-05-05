@@ -173,6 +173,7 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+dapt/data/Sakana*
 
 # model training checkpoint
 CUDA-gen-OnlineDPO

@@ -1,0 +1,134 @@
+_wandb:
+    value:
+        cli_version: 0.19.4
+        m:
+            - "1": global_step
+              "6":
+                - 3
+              "7": []
+        python_version: 3.12.8
+        t:
+            "1":
+                - 1
+                - 49
+                - 51
+                - 55
+                - 105
+            "2":
+                - 1
+                - 49
+                - 51
+                - 55
+                - 105
+            "3":
+                - 3
+                - 7
+                - 23
+                - 55
+                - 66
+            "4": 3.12.8
+            "5": 0.19.4
+            "8":
+                - 5
+            "9":
+                "2": torchtune
+            "12": 0.19.4
+            "13": linux-x86_64
+batch_size:
+    value: 1
+checkpointer:
+    value:
+        _component_: torchtune.training.FullModelHFCheckpointer
+        checkpoint_dir: /data/user_data/amittur/Llama-3.1-8B-Instruct
+        checkpoint_files:
+            - model-00001-of-00004.safetensors
+            - model-00002-of-00004.safetensors
+            - model-00003-of-00004.safetensors
+            - model-00004-of-00004.safetensors
+        model_type: LLAMA3
+        output_dir: /data/user_data/amittur/dapt
+        recipe_checkpoint: null
+clip_grad_norm:
+    value: null
+compile:
+    value: false
+dataset:
+    value:
+        _component_: torchtune.datasets.text_completion_dataset
+        column: CUDA_Code
+        data_files: data/text_completion_dataset/data-00000-of-00001.arrow
+        packed: true
+        source: arrow
+device:
+    value: cuda
+dtype:
+    value: bf16
+enable_activation_checkpointing:
+    value: true
+enable_activation_offloading:
+    value: false
+epochs:
+    value: 1
+gradient_accumulation_steps:
+    value: 8
+loss:
+    value:
+        _component_: torchtune.modules.loss.CEWithChunkedOutputLoss
+lr_scheduler:
+    value:
+        _component_: torchtune.training.lr_schedulers.get_cosine_schedule_with_warmup
+        num_warmup_steps: 100
+max_steps_per_epoch:
+    value: null
+metric_logger:
+    value:
+        _component_: torchtune.training.metric_logging.WandBLogger
+        project: torchtune
+model:
+    value:
+        _component_: torchtune.models.llama3_1.lora_llama3_1_8b
+        apply_lora_to_mlp: true
+        apply_lora_to_output: false
+        lora_alpha: 16
+        lora_attn_modules:
+            - q_proj
+            - v_proj
+            - output_proj
+        lora_dropout: 0
+        lora_rank: 8
+optimizer:
+    value:
+        _component_: torch.optim.AdamW
+        fused: true
+        lr: 0.0003
+        weight_decay: 0.01
+output_dir:
+    value: /data/user_data/amittur/dapt
+profiler:
+    value:
+        _component_: torchtune.training.setup_torch_profiler
+        active_steps: 2
+        cpu: true
+        cuda: true
+        enabled: false
+        num_cycles: 1
+        output_dir: /data/user_data/amittur/dapt/profiling_outputs
+        profile_memory: false
+        record_shapes: true
+        wait_steps: 5
+        warmup_steps: 3
+        with_flops: false
+        with_stack: false
+resume_from_checkpoint:
+    value: false
+save_adapter_weights_only:
+    value: false
+seed:
+    value: null
+shuffle:
+    value: true
+tokenizer:
+    value:
+        _component_: torchtune.models.llama3.llama3_tokenizer
+        max_seq_len: 8192
+        path: /data/user_data/amittur/Llama-3.1-8B-Instruct/original/tokenizer.model

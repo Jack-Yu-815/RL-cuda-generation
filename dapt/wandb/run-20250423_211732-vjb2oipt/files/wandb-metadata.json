@@ -1,0 +1,80 @@
+{
+  "os": "Linux-5.14.0-427.40.1.el9_4.x86_64-x86_64-with-glibc2.34",
+  "python": "CPython 3.12.8",
+  "startedAt": "2025-04-24T01:17:33.172996Z",
+  "args": [
+    "--config",
+    "config.yaml"
+  ],
+  "program": "/home/amittur/miniconda3/envs/research/lib/python3.12/site-packages/recipes/lora_finetune_single_device.py",
+  "git": {
+    "remote": "https://github.com/ScalingIntelligence/KernelBench.git",
+    "commit": "7dd9cfa0c02e8340c9bc9a919d3f19777a8f2eb2"
+  },
+  "email": "amittur@andrew.cmu.edu",
+  "root": "/home/amittur/KernelBench/dapt",
+  "host": "babel-a-20",
+  "executable": "/home/amittur/miniconda3/envs/research/bin/python",
+  "cpu_count": 64,
+  "cpu_count_logical": 128,
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "1883803385856",
+      "used": "108204920832"
+    }
+  },
+  "memory": {
+    "total": "506509418496"
+  },
+  "cpu": {
+    "count": 64,
+    "countLogical": 128
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "memoryTotal": "42949672960",
+      "cudaCores": 6912,
+      "architecture": "Ampere"
+    }
+  ],
+  "slurm": {
+    "cluster_name": "babel",
+    "conf": "/var/spool/slurmd/conf-cache/slurm.conf",
+    "cpus_on_node": "4",
+    "gpus_on_node": "1",
+    "gtids": "0",
+    "job_account": "cp3a",
+    "job_cpus_per_node": "4",
+    "job_end_time": "1745630241",
+    "job_gid": "2700410",
+    "job_gpus": "6",
+    "job_id": "4636030",
+    "job_name": "llama_31_8b_dapt_%j",
+    "job_nodelist": "babel-a-20",
+    "job_num_nodes": "1",
+    "job_partition": "general",
+    "job_qos": "normal",
+    "job_start_time": "1745457441",
+    "job_uid": "2700410",
+    "job_user": "amittur",
+    "jobid": "4636030",
+    "localid": "0",
+    "mem_per_node": "65536",
+    "nnodes": "1",
+    "nodeid": "0",
+    "nodelist": "babel-a-20",
+    "prio_process": "0",
+    "procid": "0",
+    "script_context": "prolog_task",
+    "submit_dir": "/home/amittur/KernelBench/dapt",
+    "submit_host": "babel-login-1",
+    "task_pid": "3662881",
+    "tasks_per_node": "4",
+    "topology_addr": "babel-a-20",
+    "topology_addr_pattern": "node"
+  },
+  "cudaVersion": "12.6"
+}
